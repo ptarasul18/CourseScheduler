@@ -26,6 +26,7 @@
       }
     },
     "web": {
+      "name": "CourseScheduler",
       "favicon": "./assets/favicon.png"
     }
   }

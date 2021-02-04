@@ -92,23 +92,24 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
   },
-  courseButton: {
-    flex: 1,
-    borderRadius: 5,
-    justifyContent: 'center',
-    alignItems: 'center',
-    margin: 10,
-    height: 60,
-    padding: 10,
-    minWidth: 90,
-    maxWidth: 90,
-    backgroundColor: '#66b0ff',
-  },
-  courseText:{
-    color: '#fff',
-    fontSize: 12,
-    textAlign: 'center',
-  },
+  
+  // courseButton: {
+  //   flex: 1,
+  //   borderRadius: 5,
+  //   justifyContent: 'center',
+  //   alignItems: 'center',
+  //   margin: 10,
+  //   height: 60,
+  //   padding: 10,
+  //   minWidth: 90,
+  //   maxWidth: 90,
+  //   backgroundColor: '#66b0ff',
+  // },
+  // courseText:{
+  //   color: '#fff',
+  //   fontSize: 12,
+  //   textAlign: 'center',
+  // },
 });
 
 export default App;

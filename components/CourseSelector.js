@@ -2,10 +2,13 @@ import React, { useState } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import CourseList from './CourseList';
 import Course from './Course';
-import { hasConflict } from 'C:/Users/pauli/Downloads/CS394/CourseScheduler/utils/course.js';
+import { hasConflict } from '../utils/course';
 
-const CourseSelector = ({courses}) => {
+const CourseSelector = ({courses, view}) => {
     const [selected, setSelected] = useState([]);
+    // const view = (course) => {
+    //   navigation.navigate('CourseDetailScreen', { course });
+    // };
 
     const toggle = course => setSelected(selected => (
         selected.includes(course) ? selected.filter(x => x !== course) : [...selected, course]
@@ -19,6 +22,7 @@ const CourseSelector = ({courses}) => {
                 isDisabled={hasConflict(course, selected)} 
                 select={toggle}
                 isSelected={selected.includes(course)}
+                view={view}
             />
           ))
         }

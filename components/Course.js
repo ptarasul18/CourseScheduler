@@ -7,9 +7,14 @@ import { getCourseNumber, getCourseTerm, hasConflict } from 'C:/Users/pauli/Down
 //   course.id.slice(1)
 // )
 
-const Course = ({course, isDisabled, isSelected, select}) => (
+// const view = (course) => {
+//   navigation.navigate('CourseDetailScreen', { course });
+// };
+
+const Course = ({course, isDisabled, isSelected, select, view}) => (
   <TouchableOpacity style={styles[isSelected ? 'courseButtonSelected' : isDisabled? 'courseButtonDisabled' : 'courseButton']}
-  onPress={() => { if (!isDisabled) select(course);}}>
+  onPress={() => { if (!isDisabled) select(course);}}
+  onLongPress={() => view(course)}>
     <Text style={styles.courseText}>
       {`CS ${getCourseNumber(course)}\n${course.meets}`}
     </Text>

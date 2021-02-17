@@ -6,6 +6,22 @@ import { useContext, useState, useEffect } from 'react';
 import CourseSelector from '../CourseSelector';
 import UserContext from '../UserContext';
 import CourseEditScreen from './CourseEditScreen';
+//import firebase from '../../firebase.js';
+import firebase from "firebase/app";
+import "firebase/database";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDpFbn3YHC5vLLiv6bbVkW__SUUqwEnGrI",
+  authDomain: "coursescheduler-6113c.firebaseapp.com",
+  databaseURL: "https://coursescheduler-6113c-default-rtdb.firebaseio.com",
+  projectId: "coursescheduler-6113c",
+  storageBucket: "coursescheduler-6113c.appspot.com",
+  messagingSenderId: "888186878247",
+  appId: "1:888186878247:web:6e9a8bd499691b52a5d102",
+  measurementId: "G-76GDDNXFBP"
+};
+
+firebase.initializeApp(firebaseConfig);
 
 const schedule = {
   title: "CS Courses for 2018-2019",
@@ -56,6 +72,10 @@ const Banner = ({title}) => (
 //   </TouchableOpacity>
 // );
 
+const fixCourses = json => ({
+  ...json,
+  courses: Object.values(json.courses)
+});
 
 const ScheduleScreen = ({navigation}) => {
   const user = useContext(UserContext);
@@ -68,14 +88,22 @@ const ScheduleScreen = ({navigation}) => {
   const view = (course) => {
     navigation.navigate(canEdit ? 'CourseEditScreen' : 'CourseDetailScreen', { course });
   };  
+  // useEffect(() => {
+  //   const fetchSchedule =  async () => {
+  //     const response = await fetch(url);
+  //     if (!response.ok) throw response;
+  //     const json = await response.json();
+  //     setSchedule(json);
+  //   }
+  //   fetchSchedule();
+  // }, []);
   useEffect(() => {
-    const fetchSchedule =  async () => {
-      const response = await fetch(url);
-      if (!response.ok) throw response;
-      const json = await response.json();
-      setSchedule(json);
+    const db = firebase.database().ref();
+    const handleData = snap => {
+      if (snap.val()) setSchedule(fixCourses(snap.val()));
     }
-    fetchSchedule();
+    db.on('value', handleData, error => alert(error));
+    return () => { db.off('value', handleData); };
   }, []);
   return (
     <SafeAreaView style={styles.container}>
